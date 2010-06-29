@@ -51,8 +51,8 @@
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
-  		<artifactId>org.springframework.jdbc</artifactId>
-  		<version>3.0.0.RELEASE</version>
+  		<artifactId>spring-jdbc</artifactId>
+  		<version>3.0.1.RELEASE</version>
   	</dependency>
   	<dependency>
   		<groupId>javax.servlet</groupId>
