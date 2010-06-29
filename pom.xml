@@ -25,16 +25,6 @@
   		<version>2.1</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>org.springframework.web</artifactId>
-  		<version>3.0.0.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>org.springframework.web.servlet</artifactId>
-  		<version>3.0.0.RELEASE</version>
-  	</dependency>
-  	<dependency>
   		<groupId>jfreechart</groupId>
   		<artifactId>jfreechart</artifactId>
   		<version>1.0.0</version>
@@ -69,6 +59,16 @@
   		<artifactId>servlet-api</artifactId>
   		<scope>provided</scope>
   		<version>2.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-web</artifactId>
+  		<version>3.0.1.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>3.0.1.RELEASE</version>
   	</dependency>
   	
   </dependencies>
