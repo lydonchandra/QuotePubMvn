@@ -74,14 +74,14 @@ public class StockDistribution {
         return effVolStr;        
     }
 
-    public void popEv(String stock, String date) throws SQLException {
-        String db = "stock5";
+    public void popEv(String stock, String inDate) throws SQLException {
+        //String db = "stock5";
         String url = "jdbc:mysql://localhost:3306/" + db;
         Connection conn = java.sql.DriverManager.getConnection(url, "root", "");
         
         Statement stat2 = conn.createStatement();
         Statement stat = conn.createStatement();
-        ResultSet rs2 = stat2.executeQuery("select symbol,data,open,high,low,close,vol from " + stock + " where data like '" + date + "%' order by data");
+        ResultSet rs2 = stat2.executeQuery("select symbol,date,open,high,low,close,vol from " + stock + " where date like '" + inDate + "%' order by date");
 
         String symbol = "";
         double prevClose = 0.0;
@@ -89,23 +89,27 @@ public class StockDistribution {
         while( rs2.next() ) {
             symbol = rs2.getString("symbol");
             double open  = rs2.getDouble("open");
-            String data = rs2.getString("data");
+            String date = rs2.getString("date");
             double close = rs2.getDouble("close");
             double high  = rs2.getDouble("high");
             double low   = rs2.getDouble("low") ;
             long volume = rs2.getLong("vol") ;
 
-            String datetime = rs2.getString("data");
+            String datetime = rs2.getString("date");
 
             if(idx > 0) {
                 String effVolStr = popEvCore(prevClose, symbol, open, high, low, close, volume);
-                String str =  "update " + stock + " set ev = '" + effVolStr + "' where data = '" + data + "'";
+                String str =  "update " + stock + " set ev = '" + effVolStr + "' where date = '" + inDate + "'";
                 stat.executeUpdate(str);
             }
             idx++;
             prevClose = close;
         }
         System.out.println( symbol + "~~ done");
-
+    }
+    
+    private String db;
+    public void setDb(String db) {
+    	this.db = db;
     }
 }
