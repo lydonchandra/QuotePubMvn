@@ -1,5 +1,8 @@
 package com.don;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,20 +61,36 @@ public class StockDistribution {
         return arrStock;    	
     }
 
-    public String popEvCore(double prevClose, String symbol, double open, double high, double low, double close, long vol) {
-        double gain = close - open;
-        double spread = high - low;
+    public String popEvCore(double prevClose, double open, double high, double low, double close, long vol) {
         final double PI = 0.01;
         double evHigh = Math.max(high, prevClose);
         double evLow = Math.min(low, prevClose);
         double evDiff = prevClose - close;
-        double evSpread = high - low;
+        double evSpread = evHigh - evLow;
         double effVol = (evDiff + PI) / (evSpread + PI) * vol;
         String effVolStr = "" + effVol;
         if( effVolStr.length() > 10)
             effVolStr = effVolStr.substring(0,10); // keep length max 10, so no mysql insert exception (column is varchar(10)
 
         return effVolStr;        
+    }
+    
+    public long getEv(BigDecimal prevClose, BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close, long vol) {
+    	if(prevClose.compareTo(close) == 0) { 
+    		return 0L; 
+    	}
+    		
+        final BigDecimal PI = new BigDecimal("0.01");
+        BigDecimal evHigh = high.max(prevClose);
+        BigDecimal evLow = low.min(prevClose);
+        BigDecimal evDiff = prevClose.subtract(close).add(PI);
+        BigDecimal evSpread = evHigh.subtract(evLow).add(PI);
+        BigDecimal effVol = evDiff.divide( evSpread, 5, RoundingMode.HALF_EVEN )  .multiply( new BigDecimal(vol));
+        
+        if( open.compareTo(close) == 1)
+        	effVol = effVol.multiply(new BigDecimal("-1"));
+        
+        return effVol.longValue();        
     }
 
     public void popEv(String stock, String inDate) throws SQLException {
@@ -98,7 +117,7 @@ public class StockDistribution {
             String datetime = rs2.getString("date");
 
             if(idx > 0) {
-                String effVolStr = popEvCore(prevClose, symbol, open, high, low, close, volume);
+                String effVolStr = popEvCore(prevClose, open, high, low, close, volume);
                 String str =  "update " + stock + " set ev = '" + effVolStr + "' where date = '" + inDate + "'";
                 stat.executeUpdate(str);
             }
