@@ -2,26 +2,41 @@ package com.don.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.DefaultOHLCDataset;
-import org.jfree.data.xy.OHLCDataItem;
-import org.jfree.data.xy.OHLCDataset;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdScheduler;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.FileSystemResource;
 
 public class Play {
 
-	public static void main(String[] args) throws IOException, ParseException {
+	public static void main(String[] args) throws IOException, ParseException, InterruptedException, SchedulerException {
 		
-		String sDate = "07-May-2010 10:05";
-		DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
-		Date date = formatter.parse(sDate);
-		date = null;
+		final BeanFactory factory = new XmlBeanFactory(new FileSystemResource("/Users/lydonchandra/Documents/workspace-sts-carbon/QuotePubMvn/src/main/java/com/don/test/quartz.xml"));
+		StdScheduler sched = (StdScheduler)factory.getBean("scheduler");
+		sched.start();
+		
+		//		while(true) {
+//			String tmpdir = "/tmp/test";
+//			File file = new File(tmpdir);
+//			File[] children = file.listFiles();
+//			for(File tmpFile: children) {
+//				System.out.println(tmpFile.getAbsolutePath());
+//				//send msg to jms to process
+//				// delete file or archive file
+//			}
+//			
+//			Thread.sleep(10000);
+//		}
+//		
+		
+		
+//		String sDate = "07-May-2010 10:05";
+//		DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+//		Date date = formatter.parse(sDate);
+//		date = null;
 //		OHLCDataItem[] items = new OHLCDataItem[10];
 //		
 //		int idx = 1;
@@ -33,8 +48,7 @@ public class Play {
 //		
 //		JFreeChart chart = ChartFactory.createCandlestickChart("stock", "datetime", "price", dataset, true);
 //		ChartUtilities.saveChartAsPNG(new File("/Users/lydonchandra/chartdemo.png"), chart, 500, 500);
-		
-		
+	
 	}
 
 }

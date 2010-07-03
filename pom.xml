@@ -2,7 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>QuotePubMvn</groupId>
   <artifactId>QuotePubMvn</artifactId>
+  <packaging>war</packaging>
   <name>QuotePubMvn</name>
+  <url>http://maven.apache.org</url>
   <version>0.0.1-SNAPSHOT</version>
   <description>Effective Volume Calculation and Backtesting</description>
   <build>
@@ -16,7 +18,15 @@
   				<target>1.6</target>
   			</configuration>
   		</plugin>
+  		<plugin>
+  			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>jboss-packaging-maven-plugin</artifactId>
+  			<version>2.1.1</version>
+  			<configuration>
+  			</configuration>
+  		</plugin>
   	</plugins>
+  	<finalName>QuotePubMvn</finalName>
   </build>
   <dependencies>
   	<dependency>
@@ -79,6 +89,21 @@
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
   		<version>4.8.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.quartz-scheduler</groupId>
+  		<artifactId>quartz</artifactId>
+  		<version>1.7.3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-context-support</artifactId>
+  		<version>3.0.1.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-context</artifactId>
+  		<version>3.0.1.RELEASE</version>
   	</dependency>
   	
   </dependencies>

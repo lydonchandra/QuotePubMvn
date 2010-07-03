@@ -94,7 +94,6 @@ public class StockDistribution {
     }
 
     public void popEv(String stock, String inDate) throws SQLException {
-        //String db = "stock5";
         String url = "jdbc:mysql://localhost:3306/" + db;
         Connection conn = java.sql.DriverManager.getConnection(url, "root", "");
         

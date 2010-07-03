@@ -23,11 +23,12 @@
 		<property name="defaultDestination" ref="destination" />
 	</bean>
 	
-	<bean id="publisher" class="com.don.Publisher">
+	<!--<bean id="publisher" class="com.don.Publisher">
 		<property name="jmsTemplate" ref="jmsTemplate" />
 		<property name="destination" ref="destination" />
 	</bean>
 	
+	-->
 	<bean id="consumer" class="com.don.Consumer">
 		<property name="jmsTemplate" ref="jmsTemplate" />
 	</bean>
