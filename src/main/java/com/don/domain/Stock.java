@@ -12,7 +12,8 @@ import javax.persistence.Id;
 @Entity
 public class Stock implements Serializable {
 	public Stock() {}
-	
+
+	private String symbol;
 	private Long id;
 	private BigDecimal open;
 	private BigDecimal high;
@@ -82,7 +83,6 @@ public class Stock implements Serializable {
 		this.id = id;
 	}
 	
-	private String symbol;
 
 	public String getSymbol() {
 		return symbol;

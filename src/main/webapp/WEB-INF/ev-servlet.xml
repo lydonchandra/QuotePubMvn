@@ -57,7 +57,9 @@
 	<property name="hibernateTemplate" ref="hibernateTemplate" />
 </bean>
 
-<bean id="stockDistribution" class="com.don.StockDistribution" />
+<bean id="stockDistribution" class="com.don.StockDistribution">
+	<property name="stockDao" ref="stockDao"/>
+</bean>
 
 <bean id="dataImporter" class="com.don.DataImporter">
 	<property name="stockDao" ref="stockDao"/>

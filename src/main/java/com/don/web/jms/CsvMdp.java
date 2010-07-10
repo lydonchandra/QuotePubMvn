@@ -23,6 +23,7 @@ public class CsvMdp implements MessageListener {
 			if( file.canRead() ) {
 				dataImporter.importDataHibernate(filepath, db);
 //				stockDistribution.calculateAllEv(db, "07-May-2010" );
+				stockDistribution.calculateAllEv();
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();
