@@ -28,6 +28,12 @@
   	</plugins>
   	<finalName>QuotePubMvn</finalName>
   </build>
+  <repositories>
+  	<repository>
+  		<id>jboss repo</id>
+  		<url>https://repository.jboss.org/nexus/content/groups/public</url>
+  	</repository>
+  </repositories>
   <dependencies>
   	<dependency>
   		<groupId>net.sf.opencsv</groupId>
@@ -104,6 +110,41 @@
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-context</artifactId>
   		<version>3.0.1.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.security</groupId>
+  		<artifactId>spring-security-web</artifactId>
+  		<version>3.0.2.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.security</groupId>
+  		<artifactId>spring-security-core</artifactId>
+  		<version>3.0.2.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.security</groupId>
+  		<artifactId>spring-security-config</artifactId>
+  		<version>3.0.2.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-core</artifactId>
+  		<version>3.5.3-Final</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>com.springsource.org.hibernate.annotations</artifactId>
+  		<version>3.3.1.ga</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-orm</artifactId>
+  		<version>3.0.1.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.persistence</groupId>
+  		<artifactId>persistence-api</artifactId>
+  		<version>1.0</version>
   	</dependency>
   	
   </dependencies>

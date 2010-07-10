@@ -21,8 +21,8 @@ public class CsvMdp implements MessageListener {
 			String filepath = mapMessage.getString("file");
 			File file = new File(filepath);
 			if( file.canRead() ) {
-				dataImporter.importData(filepath, db);
-				stockDistribution.calculateAllEv(db, "07-May-2010" );
+				dataImporter.importDataHibernate(filepath, db);
+//				stockDistribution.calculateAllEv(db, "07-May-2010" );
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();

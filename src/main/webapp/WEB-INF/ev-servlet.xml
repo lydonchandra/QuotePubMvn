@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans 
+		xmlns:sec="http://www.springframework.org/schema/security"
+		xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns:aop="http://www.springframework.org/schema/aop"
         xmlns:jee="http://www.springframework.org/schema/jee"
@@ -9,19 +11,63 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-2.5.xsd">  
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.0.xsd
+        ">  
 
 		<context:component-scan base-package="com.don.web" />
 
+<bean name="/hibernate.htm" class="com.don.web.StockController" >
+	<property name="stockDao" ref="stockDao" />
+</bean>
+
+
+<bean id="dataSourceHibernate" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	<property name="url" value="jdbc:mysql://localhost:3306/stock5" />
+	<property name="username" value="root" />
+	<property name="password" value="" />
+</bean>
+
+
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<property name="dataSource" ref="dataSourceHibernate" />
+	<property name="annotatedClasses">
+		<list>
+			<value>com.don.domain.Stock</value>
+		</list>
+	</property>
+	
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+		</props>
+	</property>
+	
+</bean>
+
+<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	
+</bean>		
+
+<bean id="stockDao" class="com.don.domain.dao.StockDao" >
+	<property name="hibernateTemplate" ref="hibernateTemplate" />
+</bean>
 
 <bean id="stockDistribution" class="com.don.StockDistribution" />
 
-<bean id="dataImporter" class="com.don.DataImporter"/>
+<bean id="dataImporter" class="com.don.DataImporter">
+	<property name="stockDao" ref="stockDao"/>
+</bean>
 
 <bean id="csvMdp" class="com.don.web.jms.CsvMdp">
 	<property name="dataImporter" ref="dataImporter"/>
 	<property name="stockDistribution" ref="stockDistribution" />
 	<property name="db" value="stock8" />
+	
 </bean>
 
 <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
